@@ -18,7 +18,7 @@ const routes = [
     component: crearCrud
   },
   {
-    path: '/editar',
+    path: '/editar/:id',
     name: 'editar',
     component: editarCrud
   },

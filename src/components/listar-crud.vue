@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-   
+    <router-link to="/crear" class="btn btn-success">Agregar nuevo empleado</router-link> 
     <div class="card">
       <div class="card-header">
         Empleados
@@ -21,9 +21,14 @@
               <td>{{empleado.nombre}}</td>
               <td>{{empleado.correo}}</td>
               <td>
+                <div class="btn-group" role="group" aria-label="">
+                
 
-                <a name="" id="" class="btn btn-primary" href="#" role="button">Editar</a>
-                <a name="" id="" class="btn btn-primary" href="#" role="button">Borrar</a>
+                  <router-link :to="{name:'editar',params:{id:empleado.id}}" class="btn btn-info">Editar</router-link>
+
+                  <button type="button" v-on:click="borrarEmpleado(empleado.id)" class="btn btn-danger">Borrar</button>
+                </div>
+
 
               </td>
             </tr>
@@ -52,13 +57,27 @@ export default {
   },
   methods:{
     consutarempleados(){
-      fetch('http://localhost/Servicios/').then(respuesta=>respuesta.json())
+      fetch('http://localhost/Servicios/')
+      .then(respuesta=>respuesta.json())
       .then((datosRespuesta)=>{
       console.log(datosRespuesta)
         this.empleados=[]
         if(typeof datosRespuesta[0].success==='undefined'){
           this.empleados=datosRespuesta;
         }
+        
+
+
+      })
+      .catch(console.log)
+    },
+    borrarEmpleado(id){
+      fetch('http://localhost/Servicios/?borrar='+id)
+      .then(respuesta=>respuesta.json())
+      .then((datosRespuesta)=>{
+      
+        console.log(datosRespuesta)
+        window.location.href='listar'
         
 
 
